@@ -1,6 +1,6 @@
 import { swatch, fileIcon, ai, logoShirt, stylishShirt } from "../assets";
 
-export const EditorTabs = [
+export const editorTabs = [
   {
     name: "colorpicker",
     icon: swatch,
@@ -15,7 +15,7 @@ export const EditorTabs = [
   },
 ];
 
-export const FilterTabs = [
+export const filterTabs = [
   {
     name: "logoShirt",
     icon: logoShirt,
@@ -26,7 +26,7 @@ export const FilterTabs = [
   },
 ];
 
-export const DecalTypes = {
+export const decalTypes = {
   logo: {
     stateProperty: "logoDecal",
     filterTab: "logoShirt",
