@@ -19,6 +19,39 @@ import {
 
 const Customizer = () => {
   const snap = useSnapshot(state);
+
+  const [file, setFile] = React.useState("");
+  const [prompt, setPrompt] = React.useState("");
+  const [generatingImg, setGeneratingImg] = React.useState("");
+  const [activeEditorTab, setActiveEditorTab] = React.useState("");
+  const [activeFilterTab, setActiveFilterTab] = React.useState({
+    logoShirt: true,
+    stylishShirt: false,
+  });
+
+  const handleDecals = () => {};
+
+  const readFile = (type) => {
+    reader(file).then((result) => {
+      handleDecals(type, result);
+      setActiveEditorTab("");
+    });
+  };
+
+  // show tab content depending on the active tab
+  const generateTabContent = () => {
+    switch (activeEditorTab) {
+      case "colorpicker":
+        return <ColorPicker />;
+      case "filepicker":
+        return <FilePicker file={file} setFile={setFile} />;
+      case "aipicker":
+        return <AIPicker />;
+      default:
+        return null;
+    }
+  };
+
   return (
     <AnimatePresence>
       {!snap.intro && (
@@ -31,8 +64,13 @@ const Customizer = () => {
             <div className="flex items-center min-h-screen">
               <div className="editortabs-container tabs">
                 {editorTabs.map((tab) => (
-                  <Tab key={tab.name} tab={tab} handleClick={() => {}} />
+                  <Tab
+                    key={tab.name}
+                    tab={tab}
+                    handleClick={() => setActiveEditorTab(tab.name)}
+                  />
                 ))}
+                {generateTabContent()}
               </div>
             </div>
           </motion.div>
@@ -57,7 +95,7 @@ const Customizer = () => {
                 tab={tab}
                 isFilterTab
                 isActiveTab=""
-                handleClick={() => {}}
+                handleClick={() => setActiveFilterTab(tab.name)}
               />
             ))}
           </motion.div>
